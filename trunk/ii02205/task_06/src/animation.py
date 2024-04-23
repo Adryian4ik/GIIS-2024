@@ -1,3 +1,5 @@
+import random
+
 import pygame
 import sys
 import numpy as np
@@ -48,7 +50,7 @@ class App:
         self.fps = 100
         self.clock = pygame.time.Clock()
         self.rng = np.random.default_rng(seed=42)
-        self.n = 10
+        self.n = 5
 
         self.points_prev = get_round_coords(self.n)
         self.points_new = get_round_coords(self.n)
@@ -77,7 +79,7 @@ class App:
             angle = atan2(y, x)
 
             new_angle = angle + common_angle
-            delta_r = 40 * ((secrets.randbits(bits) / (2 ** bits)) * 2 - 1) * 40
+            delta_r = 40 * ((random.random()) * 2 - 1) * 40
 
             if r + delta_r > radius * 1.5 or r + delta_r < radius * 0.55:
                 r -= 0.05 * delta_r * 0
@@ -137,7 +139,7 @@ class App:
             self.screen.blit(self.blur_surface(), (0, 0))
             pygame.display.flip()
             pygame.display.set_caption(f"FPS: {int(self.clock.get_fps())}")
-            self.clock.tick(1 * self.fps)
+            self.clock.tick()
 
         pygame.quit()
         sys.exit()
